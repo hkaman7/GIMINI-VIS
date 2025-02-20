@@ -1,7 +1,7 @@
 // 
 
 document.addEventListener("DOMContentLoaded", function () {
-    d3.csv("data.csv").then(function (data) {
+    d3.csv("data_2022_2023.csv").then(function (data) {
         window.dataset = data;
         displayData(data);
     });
