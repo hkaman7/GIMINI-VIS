@@ -1,3 +1,5 @@
+// 
+
 document.addEventListener("DOMContentLoaded", function () {
     d3.csv("data.csv").then(function (data) {
         window.dataset = data;
@@ -9,12 +11,14 @@ function filterData() {
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
     let location = document.getElementById("location").value;
+    let category = document.getElementById("category").value;
 
     let filteredData = window.dataset.filter(d => {
         let dateCheck = (!startDate || new Date(d.date) >= new Date(startDate)) &&
                         (!endDate || new Date(d.date) <= new Date(endDate));
-        let locationCheck = (location === "all" || d.location === location);
-        return dateCheck && locationCheck;
+        let locationCheck = (location === "all" || d.location.includes(location));
+        let categoryCheck = (category === "all" || d.category.includes(category));
+        return dateCheck && locationCheck && categoryCheck;
     });
     
     displayData(filteredData);
@@ -29,6 +33,6 @@ function displayData(data) {
         row.append("td").text(d.date);
         row.append("td").text(d.location);
         row.append("td").text(d.category);
-        row.append("td").text(d.sub_category);
+        row.append("td").text(d.data);
     });
 }
